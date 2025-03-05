@@ -1,6 +1,6 @@
 
-export * from './ezzy-modal';
+export * from './ezzy-modal.tsx';
 
-export type { EzzyModalExtraNames, ModalNames } from './types';
+export type { EzzyModalExtraNames, ModalNames } from './types.ts';
 
 
