@@ -1,6 +1,6 @@
 {
   "name": "ezzy-modal",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "main": "dist/ezzy-modal.umd.js",
   "module": "dist/ezzy-modal.es.js",
   "types": "dist/index.d.ts",
