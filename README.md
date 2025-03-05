@@ -6,16 +6,12 @@
 
 **ezzy-modal** — это минималистичная библиотека для создания модальных окон в React с помощью нативного [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog). Вес — всего ~1KB, а управление модалкой возможно как через `window`, так и через `ref`, без использования Redux, Context или встроенного хука `useState`.
 
----
-
 ## Особенности
 
 - **Лёгкий вес** (~1KB, min+gzip)
 - **Простота использования** — никаких дополнительных обвязок (Redux/Context)
 - **Гибкий доступ**: `window` или `ref`
 - **Использует `<dialog>`** — нативные методы открытия/закрытия
-
----
 
 ## Установка
 
@@ -89,8 +85,6 @@ function LoginComponent() {
 export default LoginComponent;
 ```
 
-##
-
 ## Пропсы EzzyModal
 
 Ниже перечислены основные пропсы, которые вы можете передать компоненту EzzyModal:
@@ -158,4 +152,5 @@ export default LoginComponent;
   - Через `window`: вызовите `window.loginModal.close()`
 
 - **Стилизация**:
+  - Если хотите подключить стили добавьте `import 'ezzy-modal/dist/index.css'`
   - Используйте проп `wrapperClassname` для задания дополнительного CSS-класса обёртки.
