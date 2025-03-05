@@ -3,6 +3,8 @@
   "compilerOptions": {
     "noEmit": false,
     "jsx": "preserve",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
     "declaration": true,
     "outDir": "dist"

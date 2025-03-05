@@ -1,12 +1,12 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
 import './index.css';
-import { ModalNames } from './types';
+import { ModalNames } from './types.ts';
 import {
   closeOutOfModalFunc,
   combineRefs,
   preventCloseOnEscFunc,
-} from './utils';
+} from './utils.ts';
 
 type ExtendWithOmit = Omit<React.ComponentProps<'dialog'>, 'open'>;
 
