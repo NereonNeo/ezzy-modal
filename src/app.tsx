@@ -9,20 +9,15 @@ export function App() {
   };
 
   const handleOpenByWindow = () => {
-    console.log(window['ezzy-modal'].showModal());
+    window.ezzy['ezzy-modal'].showModal();
   };
 
   return (
     <>
       <button onClick={handleOpenByRef}>Open by ref</button>
       <button onClick={handleOpenByWindow}>Open by window</button>
-      <EzzyModal
-        ref={ref}
-        bodyScrollLock
-        closeOnOverlayClick
-        preventCloseOnEsc
-        id={'ezzy-modal'}
-      >
+
+      <EzzyModal ref={ref} bodyScrollLock closeOnOverlayClick id={'ezzy-modal'}>
         <div
           style={{
             width: '500px',
