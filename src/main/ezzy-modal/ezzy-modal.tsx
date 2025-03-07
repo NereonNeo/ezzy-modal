@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useRef } from 'react';
 import './index.css';
 import { ModalNames } from './types.ts';
 import {
@@ -35,7 +35,29 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
     } = props;
     const indexRef = useRef<HTMLDialogElement>(null);
 
+    const elementStoreRegistry = useCallback(() => {
+      if (!indexRef.current) return;
+
+      const nodeAccessWindow = Object.assign({}, window.ezzy, {
+        [id]: indexRef.current,
+      });
+
+      Object.defineProperty(nodeAccessWindow, id, {
+        value: indexRef.current,
+        writable: false,
+        configurable: false,
+      });
+
+      Object.defineProperty(window, 'ezzy', {
+        value: nodeAccessWindow,
+        writable: false,
+        configurable: true,
+      });
+    }, [id]);
+
     useEffect(() => {
+      elementStoreRegistry();
+
       const controller = new AbortController();
       if (!indexRef.current) return;
 
@@ -56,11 +78,10 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
       return () => {
         controller.abort();
       };
-    }, [isOpen, closeOnOverlayClick, preventCloseOnEsc]);
+    }, [isOpen, closeOnOverlayClick, preventCloseOnEsc, elementStoreRegistry]);
 
     return (
       <dialog
-        id={id}
         data-lock={bodyScrollLock}
         className={clsx('ezzy-modal', className)}
         ref={combineRefs(indexRef, ref)}
