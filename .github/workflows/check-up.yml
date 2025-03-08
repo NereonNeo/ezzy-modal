@@ -1,12 +1,12 @@
-name: Build and Publish Package
+name: Build And Check Before Publish
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 jobs:
-  build_and_publish:
+  check-up-and-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,10 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Start Lint
+        run: npm run lint
+
       - name: Build project
         run: npm run build
-
-      - name: Publish package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
