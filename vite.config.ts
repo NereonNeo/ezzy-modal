@@ -10,6 +10,11 @@ export default defineConfig({
     outDir: 'dist',
   })],
 
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+    preserveSymlinks: true
+  },
+
 
   build: {
     lib: {
@@ -19,12 +24,12 @@ export default defineConfig({
     },
     cssCodeSplit: true,
     rollupOptions: {
-      // Не включать React и ReactDOM в сборку, чтобы библиотека была "легкой"
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
         globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
+          'react': 'React',
+          'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'JSX',
         }
       },
     },
