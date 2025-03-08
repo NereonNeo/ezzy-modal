@@ -56,11 +56,10 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
     }, [id]);
 
     useEffect(() => {
-      elementStoreRegistry();
-
       const controller = new AbortController();
       if (!indexRef.current) return;
 
+      elementStoreRegistry();
       if (isOpen) indexRef.current?.showModal();
 
       if (preventCloseOnEsc)

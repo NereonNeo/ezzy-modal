@@ -20,11 +20,12 @@ export default defineConfig({
     cssCodeSplit: true,
     rollupOptions: {
       // Не включать React и ReactDOM в сборку, чтобы библиотека была "легкой"
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'ReactJsxRuntime',
         }
       },
     },
