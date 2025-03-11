@@ -38,7 +38,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
     const elementStoreRegistry = useCallback(() => {
       if (!indexRef.current) return;
 
-      const nodeAccessWindow = Object.assign({}, window.ezzy, {
+      const nodeAccessWindow = Object.assign({}, window.ezzyModal, {
         [id]: indexRef.current,
       });
 
@@ -48,7 +48,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
         configurable: false,
       });
 
-      Object.defineProperty(window, 'ezzy', {
+      Object.defineProperty(window, 'ezzyModal', {
         value: nodeAccessWindow,
         writable: false,
         configurable: true,

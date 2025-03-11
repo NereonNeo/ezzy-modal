@@ -4,14 +4,15 @@
 ![license](https://img.shields.io/npm/l/ezzy-modal?style=flat-square)
 ![size](https://img.shields.io/bundlephobia/minzip/ezzy-modal?style=flat-square)
 
-**ezzy-modal** — This is a minimalist library for creating modal dialogs in React using the native [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element. It weighs only ~1KB, and modal management can be done either through the `window` object or via a `ref`, without relying on Redux, Context, or the built-in `useState` hook.
+**ezzy-modal** — This is a minimalist library for creating modal dialogs in React using the native [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element. It weighs only ~1KB, and modal management can be done either through the `window` object or via a `ref`, or via `useEzzyModal hook`, without relying on Redux, Context, or the built-in `useState` hook.
 
 ## Features
 
-- **Lightweight** (~1KB, minified + gzipped)
-- **Ease of Use** — no extra wrappers (Redux/Context)
-- **Flexible Access**: via `window` or `ref`
-- **Uses `<dialog>`** — native open/close methods
+- **Lightweight**: — (~1KB, minified + gzipped)
+- **Ease of Use**: — no extra wrappers (Redux/Context)
+- **Flexible Access**: — via `window`, `ref`, or `hook`
+- **Security**: — сustom `window` access is implemented in a way that cannot be altered, ensuring robust protection against unauthorized modifications.
+- **Uses `<dialog>`**: — native open/close methods
 
 ## Installation
 
@@ -52,7 +53,7 @@ interface ModalNames {
 
 ```jsx
 import React, { useRef } from 'react';
-import EzzyModal from 'ezzy-modal';
+import { EzzyModal } from 'ezzy-modal';
 
 function LoginComponent() {
   // A ref to directly access the <dialog> tag
@@ -83,6 +84,44 @@ function LoginComponent() {
 
 export default LoginComponent;
 ```
+
+2.1 You can also use the `useEzzyModal` hook which gives you full control over your modal. For example:
+
+```jsx
+import { EzzyModal, useEzzyModal } from './main/ezzy-modal';
+
+export function App() {
+  const { open, close } = useEzzyModal('loginModal');
+
+  return (
+    <>
+      <button onClick={open}>Open by hook</button>
+
+      <EzzyModal bodyScrollLock closeOnOverlayClick id={'loginModal'}>
+        <div
+          style={{
+            width: '500px',
+            height: '400px',
+          }}
+        >
+          My test modal!
+          <button onClick={close}>Close by hook</button>
+        </div>
+      </EzzyModal>
+    </>
+  );
+}
+```
+
+### Hook Return Value
+
+The `useEzzyModal` hook returns an object containing:
+
+- **open()**: `void` — Opens the modal.
+- **close()**: `void` — Closes the modal.
+- **isOpen**: `boolean` — Indicates whether the modal is currently open.
+
+Additionally, the hook accepts a parameter of type `ModalNames`
 
 ## EzzyModal Main Props
 
@@ -147,8 +186,9 @@ Below are the key props you can pass to the EzzyModal component:
 
 - **Closing the Modal**:
 
-  - Via `ref`: use `ref.current?.close()`
+  - Via `ref`: use `ref.current.close()`
   - Via `window`: use `window.[your-modal-name].close()`
+  - Via `hook`: just use `close()`
 
 - **Styling**:
   - If you want to include the styles, add `import 'ezzy-modal/dist/index.css'`

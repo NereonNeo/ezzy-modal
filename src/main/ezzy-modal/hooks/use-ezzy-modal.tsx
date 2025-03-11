@@ -15,11 +15,11 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => {
-    window.ezzy[name].close();
+    window.ezzyModal[name].close();
   };
 
   const onOpen = () => {
-    window.ezzy[name].showModal();
+    window.ezzyModal[name].showModal();
   };
 
   const toggleVisibility = useCallback((event: Event) => {
@@ -28,10 +28,10 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
   }, []);
 
   useEffect(() => {
-    window.ezzy[name]?.addEventListener('toggle', toggleVisibility);
+    window.ezzyModal[name]?.addEventListener('toggle', toggleVisibility);
 
     return () => {
-      window.ezzy[name]?.removeEventListener('toggle', toggleVisibility);
+      window.ezzyModal[name]?.removeEventListener('toggle', toggleVisibility);
     };
   }, [name, toggleVisibility]);
 

@@ -1,24 +1,21 @@
 import { useRef } from 'react';
 import { EzzyModal, useEzzyModal } from './main/ezzy-modal';
-const text = 'ezzy-modal';
 
 export function App() {
   const ref = useRef<HTMLDialogElement>(null);
-  const { open, close, isOpen } = useEzzyModal(text);
+  const { open, close } = useEzzyModal('ezzy-modal');
 
   const handleOpenByRef = () => {
     ref.current?.showModal();
   };
 
   const handleOpenByWindow = () => {
-    window.ezzy['ezzy-modal'].showModal();
+    window.ezzyModal['ezzy-modal'].showModal();
   };
 
   const handleOpenByHook = () => {
     open();
   };
-
-  console.log(isOpen);
 
   return (
     <>

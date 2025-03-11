@@ -8,7 +8,7 @@ export type ModalNames = keyof EzzyModalExtraNames;
 
 declare global {
     interface Window {
-        ezzy: Record<ModalNames, HTMLDialogElement>
+        ezzyModal: Record<ModalNames, HTMLDialogElement>
     }
 }
 
