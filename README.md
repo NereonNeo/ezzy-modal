@@ -67,7 +67,7 @@ function LoginComponent() {
   // Opening the modal via window
   const handleOpenByWindow = () => {
     // For this, you need to declare loginModal in ezzy-modal.d.ts, as shown above
-    window.loginModal.showModal();
+    window.ezzyModal.loginModal.showModal();
   };
 
   return (
@@ -187,7 +187,7 @@ Below are the key props you can pass to the EzzyModal component:
 - **Closing the Modal**:
 
   - Via `ref`: use `ref.current.close()`
-  - Via `window`: use `window.[your-modal-name].close()`
+  - Via `window`: use `window.ezzyModal.[your-modal-name].close()`
   - Via `hook`: just use `close()`
 
 - **Styling**:
