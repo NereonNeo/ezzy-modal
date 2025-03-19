@@ -34,6 +34,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
       ...otherProps
     } = props;
     const indexRef = useRef<HTMLDialogElement>(null);
+    const shouldShowChildren = indexRef.current?.open;
 
     const elementStoreRegistry = useCallback(() => {
       if (!indexRef.current) return;
@@ -87,7 +88,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
         {...otherProps}
       >
         <div className={clsx('ezzy-modal-content-wrapper', wrapperClassname)}>
-          {children}
+          {shouldShowChildren && children}
         </div>
       </dialog>
     );
