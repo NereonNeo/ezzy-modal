@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { EzzyModal, useEzzyModal } from './main/ezzy-modal';
 
 export function App() {
   const ref = useRef<HTMLDialogElement>(null);
-  const { open, close } = useEzzyModal('ezzy-modal');
+  const { open } = useEzzyModal('ezzy-modal');
 
   const handleOpenByRef = () => {
     ref.current?.showModal();
@@ -30,10 +30,24 @@ export function App() {
             height: '400px',
           }}
         >
-          My test modal!
-          <button onClick={close}>Close by hook</button>
+          <DumpComponent />
         </div>
       </EzzyModal>
     </>
   );
 }
+
+const DumpComponent = () => {
+  const { close } = useEzzyModal('ezzy-modal');
+
+  useEffect(() => {
+    console.log('Check');
+  }, []);
+
+  return (
+    <>
+      <h1>Dump</h1>
+      <button onClick={close}>Close by hook</button>
+    </>
+  );
+};
