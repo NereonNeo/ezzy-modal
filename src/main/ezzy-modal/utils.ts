@@ -1,12 +1,10 @@
 import { ForwardedRef, RefObject } from "react";
+import { CustomToggleEvent, DefaultListeners, ListenersWithToggleHandler } from "./types";
 
 export function preventCloseOnEscFunc({
     node,
     controller,
-}: {
-    node: HTMLDialogElement;
-    controller: AbortController;
-}) {
+}: DefaultListeners) {
     node.addEventListener(
         'keydown',
         (event) => {
@@ -20,10 +18,7 @@ export function preventCloseOnEscFunc({
 export function closeOutOfModalFunc({
     node,
     controller,
-}: {
-    node: HTMLDialogElement;
-    controller: AbortController;
-}) {
+}: DefaultListeners) {
     node.addEventListener(
         'click',
         (event) => {
@@ -35,6 +30,15 @@ export function closeOutOfModalFunc({
         },
         { signal: controller.signal }
     );
+}
+
+export function togglerModalFunc({
+    node, controller, handler
+}: ListenersWithToggleHandler) {
+    node.addEventListener('toggle', () => {
+        const toggleEvent = event as CustomToggleEvent;
+        handler(toggleEvent.target.open)
+    }, { signal: controller.signal })
 }
 
 export function combineRefs<T>(...refs: (RefObject<T> | ForwardedRef<T> | null)[]) {

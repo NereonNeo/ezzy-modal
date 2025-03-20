@@ -3,7 +3,7 @@ import { EzzyModal, useEzzyModal } from './main/ezzy-modal';
 
 export function App() {
   const ref = useRef<HTMLDialogElement>(null);
-  const { open } = useEzzyModal('ezzy-modal');
+  const { openModal } = useEzzyModal('ezzy-modal');
 
   const handleOpenByRef = () => {
     ref.current?.showModal();
@@ -14,7 +14,7 @@ export function App() {
   };
 
   const handleOpenByHook = () => {
-    open();
+    openModal();
   };
 
   return (
@@ -38,7 +38,7 @@ export function App() {
 }
 
 const DumpComponent = () => {
-  const { close } = useEzzyModal('ezzy-modal');
+  const { closeModal } = useEzzyModal('ezzy-modal');
 
   useEffect(() => {
     console.log('Check');
@@ -47,7 +47,7 @@ const DumpComponent = () => {
   return (
     <>
       <h1>Dump</h1>
-      <button onClick={close}>Close by hook</button>
+      <button onClick={closeModal}>Close by hook</button>
     </>
   );
 };

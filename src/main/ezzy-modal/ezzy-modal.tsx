@@ -1,11 +1,12 @@
 import { clsx } from 'clsx';
-import { forwardRef, useCallback, useEffect, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import './index.css';
 import { ModalNames } from './types.ts';
 import {
   closeOutOfModalFunc,
   combineRefs,
   preventCloseOnEscFunc,
+  togglerModalFunc,
 } from './utils.ts';
 
 type ExtendWithOmit = Omit<React.ComponentProps<'dialog'>, 'open'>;
@@ -34,11 +35,9 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
       ...otherProps
     } = props;
     const indexRef = useRef<HTMLDialogElement>(null);
-    const shouldShowChildren = indexRef.current?.open;
+    const [showChildren, setShowChildren] = useState(false);
 
     const elementStoreRegistry = useCallback(() => {
-      if (!indexRef.current) return;
-
       const nodeAccessWindow = Object.assign({}, window.ezzyModal, {
         [id]: indexRef.current,
       });
@@ -57,10 +56,11 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
     }, [id]);
 
     useEffect(() => {
-      const controller = new AbortController();
       if (!indexRef.current) return;
-
       elementStoreRegistry();
+
+      const controller = new AbortController();
+
       if (isOpen) indexRef.current?.showModal();
 
       if (preventCloseOnEsc)
@@ -75,6 +75,12 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
           controller,
         });
 
+      togglerModalFunc({
+        node: indexRef.current,
+        controller,
+        handler: setShowChildren,
+      });
+
       return () => {
         controller.abort();
       };
@@ -88,7 +94,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
         {...otherProps}
       >
         <div className={clsx('ezzy-modal-content-wrapper', wrapperClassname)}>
-          {shouldShowChildren && children}
+          {showChildren && children}
         </div>
       </dialog>
     );
