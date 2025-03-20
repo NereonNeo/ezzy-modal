@@ -12,3 +12,17 @@ declare global {
     }
 }
 
+export interface CustomToggleEvent extends Event, ToggleEvent {
+    target: HTMLDetailsElement;
+}
+
+
+export interface DefaultListeners {
+    node: HTMLDialogElement;
+    controller: AbortController;
+}
+
+export interface ListenersWithToggleHandler extends DefaultListeners {
+    handler(isOpen: boolean): void
+}
+

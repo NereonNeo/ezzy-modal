@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModalNames } from '../types.ts';
+import { togglerModalFunc } from '../utils.ts';
 
 interface useEzzyModalReturn {
-  open(): void;
-  close(): void;
+  openModal(): void;
+  closeModal(): void;
   isOpen: boolean;
-}
-
-interface CustomToggleEvent extends Event, ToggleEvent {
-  target: HTMLDetailsElement;
 }
 
 export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
@@ -22,22 +19,23 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
     window.ezzyModal[name].showModal();
   };
 
-  const toggleVisibility = useCallback((event: Event) => {
-    const toggleEvent = event as CustomToggleEvent;
-    return setIsOpen(toggleEvent.target.open);
-  }, []);
-
   useEffect(() => {
-    window.ezzyModal[name]?.addEventListener('toggle', toggleVisibility);
+    const controller = new AbortController();
+
+    togglerModalFunc({
+      node: window.ezzyModal[name],
+      controller,
+      handler: setIsOpen,
+    });
 
     return () => {
-      window.ezzyModal[name]?.removeEventListener('toggle', toggleVisibility);
+      controller.abort();
     };
-  }, [name, toggleVisibility]);
+  }, [name]);
 
   return {
-    open: onOpen,
+    openModal: onOpen,
     isOpen: isOpen,
-    close: onClose,
+    closeModal: onClose,
   };
 };
