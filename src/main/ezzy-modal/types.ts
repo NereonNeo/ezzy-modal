@@ -1,10 +1,18 @@
 
-export interface EzzyModalExtraNames {
-    'ezzy-modal': 'Default id for modal testing',
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface EzzyModalExtraNames { }
 
-}
+type RecursiveKeys<T> = T extends object
+    ? {
+        [K in keyof T]: K extends string
+        ? T[K] extends object
+        ? K | `${K}.${RecursiveKeys<T[K]>}`
+        : K
+        : never;
+    }[keyof T]
+    : never;
 
-export type ModalNames = keyof EzzyModalExtraNames;
+export type ModalNames = RecursiveKeys<EzzyModalExtraNames>;
 
 declare global {
     interface Window {
