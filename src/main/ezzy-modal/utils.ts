@@ -1,5 +1,5 @@
 import { ForwardedRef, RefObject } from "react";
-import { CustomToggleEvent, DefaultListeners, ListenersWithToggleHandler } from "./types";
+import { CustomToggleEvent, DefaultListeners, ListenersWithToggleHandler } from "./types.ts";
 
 export function preventCloseOnEscFunc({
     node,

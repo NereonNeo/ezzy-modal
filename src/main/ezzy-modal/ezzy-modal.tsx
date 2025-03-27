@@ -88,6 +88,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
 
     return (
       <dialog
+        aria-modal="true"
         data-lock={bodyScrollLock}
         className={clsx('ezzy-modal', className)}
         ref={combineRefs(indexRef, ref)}
