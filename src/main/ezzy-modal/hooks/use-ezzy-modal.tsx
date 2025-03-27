@@ -12,11 +12,11 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => {
-    window.ezzyModal[name].close();
+    window.ezzyModal[name]?.close();
   };
 
   const onOpen = () => {
-    window.ezzyModal[name].showModal();
+    window.ezzyModal[name]?.showModal();
   };
 
   useEffect(() => {
