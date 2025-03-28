@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ModalNames } from '../types.ts';
-import { togglerModalFunc } from '../utils.ts';
+import { modalStateObserverFunc } from '../utils.ts';
 
 interface useEzzyModalReturn {
   openModal(): void;
@@ -22,8 +22,8 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
   useEffect(() => {
     const controller = new AbortController();
 
-    togglerModalFunc({
-      node: window.ezzyModal[name],
+    modalStateObserverFunc({
+      node: window.ezzyModal?.[name],
       controller,
       handler: setIsOpen,
     });

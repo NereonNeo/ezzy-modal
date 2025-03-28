@@ -20,9 +20,6 @@ declare global {
     }
 }
 
-export interface CustomToggleEvent extends Event, ToggleEvent {
-    target: HTMLDetailsElement;
-}
 
 
 export interface DefaultListeners {

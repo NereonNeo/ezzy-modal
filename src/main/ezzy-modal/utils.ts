@@ -1,11 +1,11 @@
 import { ForwardedRef, RefObject } from "react";
-import { CustomToggleEvent, DefaultListeners, ListenersWithToggleHandler } from "./types.ts";
+import { DefaultListeners, ListenersWithToggleHandler } from "./types.ts";
 
 export function preventCloseOnEscFunc({
     node,
     controller,
 }: DefaultListeners) {
-    node.addEventListener(
+    node?.addEventListener(
         'keydown',
         (event) => {
             if (event.key !== 'Escape') return;
@@ -19,7 +19,7 @@ export function closeOutOfModalFunc({
     node,
     controller,
 }: DefaultListeners) {
-    node.addEventListener(
+    node?.addEventListener(
         'click',
         (event) => {
             const isClickOnDialog = event.target === event.currentTarget;
@@ -32,13 +32,19 @@ export function closeOutOfModalFunc({
     );
 }
 
-export function togglerModalFunc({
+export function modalStateObserverFunc({
     node, controller, handler
 }: ListenersWithToggleHandler) {
-    node.addEventListener('toggle', () => {
-        const toggleEvent = event as CustomToggleEvent;
-        handler(toggleEvent.target.open)
-    }, { signal: controller.signal })
+    const observer = new MutationObserver((list) => {
+        const target = list[0].target as HTMLDialogElement
+        handler(target.open)
+    });
+
+    observer.observe(node, { attributes: true })
+
+    if (controller.signal.aborted) {
+        observer.disconnect()
+    }
 }
 
 export function combineRefs<T>(...refs: (RefObject<T> | ForwardedRef<T> | null)[]) {
