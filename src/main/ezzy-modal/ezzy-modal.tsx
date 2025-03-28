@@ -5,8 +5,8 @@ import { ModalNames } from './types.ts';
 import {
   closeOutOfModalFunc,
   combineRefs,
+  modalStateObserverFunc,
   preventCloseOnEscFunc,
-  togglerModalFunc,
 } from './utils.ts';
 
 type ExtendWithOmit = Omit<React.ComponentProps<'dialog'>, 'open'>;
@@ -75,7 +75,7 @@ export const EzzyModal = forwardRef<HTMLDialogElement, EzzyModalProps>(
           controller,
         });
 
-      togglerModalFunc({
+      modalStateObserverFunc({
         node: indexRef.current,
         controller,
         handler: setShowChildren,
