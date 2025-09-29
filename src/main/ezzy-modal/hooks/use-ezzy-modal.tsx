@@ -21,7 +21,6 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
 
   useEffect(() => {
     const controller = new AbortController();
-
     modalStateObserverFunc({
       node: window.ezzyModal?.[name],
       controller,
