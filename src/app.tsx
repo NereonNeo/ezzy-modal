@@ -10,7 +10,7 @@ export function App() {
   };
 
   const handleOpenByWindow = () => {
-    window.ezzyModal['ezzy-modal'].showModal();
+    window.ezzyModal?.['ezzy-modal'].showModal();
   };
 
   const handleOpenByHook = () => {

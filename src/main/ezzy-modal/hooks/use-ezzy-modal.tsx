@@ -12,14 +12,18 @@ export const useEzzyModal = (name: ModalNames): useEzzyModalReturn => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => {
-    window.ezzyModal[name]?.close();
+    const modal: HTMLDialogElement = window.ezzyModal?.[name];
+    if (modal) modal.close();
   };
 
   const onOpen = () => {
-    window.ezzyModal[name]?.showModal();
+    const modal: HTMLDialogElement = window.ezzyModal?.[name];
+    if (modal) modal.showModal();
   };
 
   useEffect(() => {
+    if (!window.ezzyModal?.[name]) return;
+
     const controller = new AbortController();
     modalStateObserverFunc({
       node: window.ezzyModal?.[name],
