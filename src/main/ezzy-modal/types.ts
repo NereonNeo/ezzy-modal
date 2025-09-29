@@ -20,8 +20,6 @@ declare global {
     }
 }
 
-
-
 export interface DefaultListeners {
     node: HTMLDialogElement;
     controller: AbortController;
